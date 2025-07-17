@@ -63,7 +63,7 @@ auto-drive
 ## Testing
 Code coverage is reported at 95%, with the remaining 5% corresponding to the main.py launcher and intentional early-exit branches (e.g., menu option [0] Exit) which are not meaningful to test.
 
-All tests are written using pytest. To run them:
+All tests are written using pytest. To run them at project root folder:
 ```bash
 pytest --cov=app tests/
 ```
