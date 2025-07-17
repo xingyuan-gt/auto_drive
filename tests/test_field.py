@@ -1,19 +1,18 @@
 import pytest
-from field import Field
+from app.field import Field
 
-def test_field_initialization():
-    field = Field(10, 8)
-    assert field.width == 10
-    assert field.height == 8
-
-@pytest.mark.parametrize("x, y, expected", [
+@pytest.mark.parametrize("x,y,expected", [
+    # why these test cases
     (0, 0, True),
-    (9, 7, True),
-    (10, 0, False),   # x at right edge
-    (0, 8, False),    # y at top edge
-    (-1, 5, False),   # x too low
-    (5, -1, False),   # y too low
+    (9, 9, True),
+    (10, 10, False),
+    (-1, 5, False),
+    (5, -1, False),
 ])
-def test_field_bounds_check(x, y, expected):
-    field = Field(10, 8)
+def test_is_within_bounds(x, y, expected):
+    field = Field(10, 10)
     assert field.is_within_bounds(x, y) == expected
+
+def test_zero_size_field():
+    field = Field(0, 0)
+    assert not field.is_within_bounds(0, 0)

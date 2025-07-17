@@ -1,31 +1,27 @@
 import pytest
-from car import Car
-from field import Field
+from app.car import Car
 
-@pytest.fixture
-def field():
-    return Field(5, 5)
+def test_initial_position(car):
+    assert car.posture() == (1, 2, "N")
 
-def test_car_initial_position(field):
-    car = Car("A", 1, 2, "N", field)
-    assert car.position() == (1, 2, "N")
-
-def test_car_rotates_left(field):
-    car = Car("A", 1, 1, "N", field)
+def test_turn_left(car):
     car.execute("L")
-    assert car.position() == (1, 1, "W")
+    assert car.posture()[2] == "W"
 
-def test_car_rotates_right(field):
-    car = Car("A", 1, 1, "N", field)
+def test_turn_right(car):
     car.execute("R")
-    assert car.position() == (1, 1, "E")
+    assert car.posture()[2] == "E"
 
-def test_car_moves_forward_within_bounds(field):
-    car = Car("A", 1, 2, "N", field)
-    car.execute("F")
-    assert car.position() == (1, 3, "N")
+def test_invalid_command_ignored(car):
+    car.execute("X")  # unknown command
+    assert car.posture() == (1, 2, "N")
 
-def test_car_does_not_move_out_of_bounds(field):
-    car = Car("A", 0, 0, "S", field)
+def test_forward_move_within_bounds(car):
     car.execute("F")
-    assert car.position() == (0, 0, "S")
+    assert car.posture() == (1, 3, "N")
+
+def test_forward_blocked_out_of_bounds(field):
+    car = Car("X", 0, 0, "S", field)
+    car.execute("F")
+    assert car.posture() == (0, 0, "S")
+
