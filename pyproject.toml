@@ -16,6 +16,9 @@ auto-drive = "app.main:start_simulation"
 testpaths = ["tests"]
 addopts = "-v"
 
+[project.optional-dependencies]
+dev = ["pytest","pytest-cov"]
+
 [tool.setuptools.packages.find]
 where = ["."]
 

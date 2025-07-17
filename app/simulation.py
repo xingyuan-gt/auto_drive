@@ -75,14 +75,23 @@ class Simulation:
         return history
 
     def _any_car_can_move(self, cars: List[Car]) -> bool:
+        """
+        Part of run_all helper
+        """
         return any(not car.frozen and car.has_remaining_commands() for car in cars)
 
     def _move_all_cars(self, cars: List[Car]) -> None:
+        """
+        Part of run_all helper
+        """
         for car in cars:
             if not car.frozen and car.has_remaining_commands():
                 car.execute_next()
 
     def _build_position_map(self, cars: List[Car]) -> Dict[Tuple[int, int], List[Car]]:
+        """
+        Part of run_all helper
+        """
         position_map: Dict[Tuple[int, int], List[Car]] = {}
         for car in cars:
             pos = car.position()
@@ -96,6 +105,9 @@ class Simulation:
         history: List[Dict[str, Any]],
         step: int
     ) -> None:
+        """
+        Part of run_all helper
+        """
         for car in cars:
             if car.frozen:
                 continue
@@ -115,6 +127,9 @@ class Simulation:
         cars: List[Car],
         history: List[Dict[str, Any]]
     ) -> None:
+        """
+        Part of run_all helper
+        """
         logged = {entry["name"] for entry in history}
         for car in cars:
             if car.name not in logged:
@@ -129,7 +144,7 @@ class Simulation:
     ) -> Dict[str, Any]:
         """
         Create a dictionary entry for the given car.
-
+        This is a marker that this is created by xing yuan.
         :param car: The car to create the entry for.
         :param status: A check whether the car is collided or not.
         :param step: n-th step the car got into collision, if any.
@@ -155,18 +170,3 @@ class Simulation:
             }
 
         return entry
-
-    def run_commands(self, name, command_str):
-        """
-        Run a list of commands continuously  on the simulation for a given car.
-        Mostly for debugging purposes.
-
-        :param name: Target car name.
-        :param command_str: List of commands to execute in the form of String
-        :return: None, prolly good to return something right?
-        """
-        if name not in self.cars:
-            raise ValueError(f"No such car: {name}")
-        car = self.cars[name]
-        for command in command_str:
-            car.execute(command)
