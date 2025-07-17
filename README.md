@@ -2,7 +2,6 @@
 This is a command-line simulation system for autonomous cars, built as part of **Xing Yuan's hiring task**. 
 It models a grid-based environment where multiple cars can be added, each receiving a unique command string to move and
 rotate.
----
 
 
 ## Problem Overview
@@ -20,7 +19,7 @@ The simulation must:
 - Detect and report car-to-car collisions (same cell, same step)
 - Provide a clean CLI experience
 
----
+
 
 ## Assumption
 - A car cannot be placed outside the field or at an occupied position
@@ -30,7 +29,7 @@ The simulation must:
 - This also means there is a possibility that are side-by-side can "pass through" each other, achieving a swapping of position.
 - Command sequences may be of different lengths; shorter sequences complete earlier while others continue
 
----
+
 
 ## Project Structure
 The project is organized into two main folders:
@@ -40,7 +39,7 @@ The project is organized into two main folders:
 
 The application entry point is main.py, which invokes the SimulationCLI class. Based on user input, the Field, Car, and Simulation components are instantiated accordingly. Once setup is complete, the simulation executes the defined commands and displays the resulting states or collisions to the user through the CLI interface.
 
----
+
 
 ## Installation \& Usage
 ###  Python Version
@@ -59,7 +58,7 @@ Or install the project and run via CLI:
 pip install -e .
 auto-drive
 ```
----
+
 
 ## Testing
 Code coverage is reported at 95%, with the remaining 5% corresponding to the main.py launcher and intentional early-exit branches (e.g., menu option [0] Exit) which are not meaningful to test.
